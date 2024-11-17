@@ -13,15 +13,18 @@ public:
         : nume(nume), vagoane(vagoane) {}
 
     //Copy constructor
-    Tren(const Tren& other)
+    /*Tren(const Tren& other)
         : nume(other.nume), vagoane(other.vagoane) {
         std::cout << "Trenul '" << this->nume << "' a fost copiat prin copy constructor.\n";
-    }
+    }*/
+
+    Tren(const Tren&) = delete; // stergere functie copy constructor generata automat
+    Tren& operator=(const Tren&) = delete; // stergere functie operator de atribuire generata automat
 
     void afiseaza() const {
         std::cout << "Nume tren: " << nume << ", Vagoane: " << vagoane << "\n";
     }
-
+    //Destructor
     ~Tren() {
         std::cout << "Tren '" << nume << "' distrus prin destructor.\n";
     }
@@ -35,8 +38,11 @@ int main() {
     t1.afiseaza();
 
     // Creem un alt obiect Tren prin copiere
-    Tren t2 = t1; // Apelăm constructorul de copiere
-    t2.afiseaza();
+    //Tren t2 = t1; // acum vom avea eroare aici, copy constructorul a fost sters cu delete
+    //t2.afiseaza();
 
+    Tren t3("R 13708", 6);
+    t3.afiseaza();
+    //t3 = t1; //aici vom avea eroare daca incercam sa atribuim obiectului t3 pe t1, pt ca operatorul de atribuire a fost sters cu delete
     return 0;
 }
